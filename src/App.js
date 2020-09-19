@@ -141,7 +141,7 @@ export default function Registration() {
 
   return (
     <div className={classes.root}>
-      <Stepper nonLinear activeStep={activeStep}>
+      <Stepper nonLinear activeStep={activeStep} className="header">
         {steps.map((label, index) => (
           <Step key={label}>
             <StepButton onClick={handleStep(index)} completed={completed[index]}>

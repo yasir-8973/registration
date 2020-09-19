@@ -125,7 +125,7 @@ export default function PersonalDetails(){
 	    			error={FullNameText && "error"}
 	    		/>
     				    		
-			    <Autocomplete
+			    <Autocomplete disabled={CountryName && true }
 			    	className="center marginTop" inputValue={CountryInputValue} onInputChange={(e, val) => {
 			          setCountryInputValue(val); }} onChange={(e,val) => {CountryChange(val)}}
 				    options={CountryData} getOptionLabel={(option) => option.country}
@@ -159,7 +159,7 @@ export default function PersonalDetails(){
 			     	</ButtonGroup>
 			    </div>
 	            {ShowAlert && <Alert className="center" severity="error">Gender is Required</Alert>}
-			    <Button variant="contained" color="primary" className="center marginTop" onClick={OnChange}>
+			    <Button variant="contained" color="primary" className="center marginTop nextButton" onClick={OnChange}>
                     Next
               </Button>
 	    	</div>	    	

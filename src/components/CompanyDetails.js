@@ -8,14 +8,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 import '../css/image.css';
 
 export default function CompanyDetails(props){
 	const content = useSelector(state => state);
     const dispatch = useDispatch();
 
-	const [ProfileImg,setProfileImg]=useState("");
-    const [ProfileImgVal,setProfileImgVal]=useState(""); 
+    const [ProfileImgVal,setProfileImgVal]=useState('https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg'); 
     const [ImageAlert,setImageAlert]=useState(""); 
 
     const [CompanyName,setCompanyName] = useState("");
@@ -33,18 +33,24 @@ export default function CompanyDetails(props){
 		})
 	},[])
 
-    function ImageChange(url){          
-      setProfileImgVal(url);
-    } 
-    function ImageMessage(val){
-      setImageAlert(val);
-    } 
-
     function OnBack(){
     	dispatch({
     		type:"BacktoPersonal",
     		BacktoPersonal:true
-    	})
+    	});
+    	dispatch({
+			type:"CompanyDetails",
+			CompanyDetails:{
+				CompanyProfile:ProfileImgVal,
+				CompanyName:CompanyName,
+				Email:Email,
+				JobTitle:JobTitle,
+				Year:Year,
+				Checked:Checked,
+				OTP:"",
+				Step2:true
+			}
+		});	
     } 
     function OnChange(){ 
     	setLoading({type:true,msg:"Loading..."});
@@ -100,10 +106,7 @@ export default function CompanyDetails(props){
 	}
 
 	useEffect(() => {
-		if(content.BacktoCompany){
-			if(content.CompanyDetails.CompanyProfile){
-				setProfileImg(content.CompanyDetails.CompanyProfile);	
-			}
+		if(content.BacktoCompany){ 
 			setProfileImgVal(content.CompanyDetails.CompanyProfile);
 			setCompanyName(content.CompanyDetails.CompanyName);
 			setEmail(content.CompanyDetails.Email);
@@ -114,10 +117,7 @@ export default function CompanyDetails(props){
 	},[content.BacktoCompany]);
 
 	useEffect(() => {
-  	if(content.PersonalDetails.Step1){ 
-  		if(content.CompanyDetails.CompanyProfile){
-			setProfileImg(content.CompanyDetails.CompanyProfile);	
-		}
+  	if(content.PersonalDetails.Step1){  
 		setProfileImgVal(content.CompanyDetails.CompanyProfile);
 		setCompanyName(content.CompanyDetails.CompanyName);
 		setEmail(content.CompanyDetails.Email);
@@ -126,7 +126,19 @@ export default function CompanyDetails(props){
 		setChecked(content.CompanyDetails.Checked);	
   	}
 
-  },[content.PersonalDetails]);
+	},[content.PersonalDetails]);
+	
+	function readURL(input) {
+	    if (input.target.files && input.target.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function(e) {	            
+	            let Image=document.getElementById("imagePreview");
+	            // Image.style.backgroundImage = 'url('+e.target.result +')';
+	            setProfileImgVal(e.target.result);
+	        }
+	        reader.readAsDataURL(input.target.files[0]);
+	    }
+	} 
 
     return (
 	    <div className="width100 textAlignCenter displayGrid">
@@ -134,12 +146,18 @@ export default function CompanyDetails(props){
 		    	<h4 className="hTag">Please fill the below Items</h4>
 		    	{loading.type && <Alert severity="warning">{loading.msg}</Alert>}		    	
 		    	<div className="center">
-		    		<ImageUpload 
-			            value={ProfileImg}
-			            onChange={(url,name) => {ImageChange(url,name)}} 
-			            message={ImageMessage} 
-			            id="LogoImg" 			          
-			        />
+			     	<div className="avatar-upload">
+				        <div className="avatar-edit">
+				            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" onChange={readURL}/>
+				            <label for="imageUpload"><EditIcon className="ImageEditIcon"/></label>
+				        </div>
+				        <div className="avatar-preview">
+				            <div id="imagePreview" style={{backgroundImage: `url(${ProfileImgVal})`}}>
+				            </div>				            
+				        </div>
+				        <p>Company Logo</p>
+				    </div>
+
 			        {ImageAlert && <Alert severity="error">{ImageAlert}</Alert>}
 				</div>
 				<div className="textAlignCenter displayGrid">
@@ -165,7 +183,7 @@ export default function CompanyDetails(props){
 		                    Back
 		              	</Button>
 		              	<Button variant="contained" className="width50" color="primary"
-		              		disabled={((ProfileImgVal || ProfileImg) && CompanyName && Email && !EmailText && Year && JobTitle && Checked) ? 
+		              		disabled={(ProfileImgVal && CompanyName && Email && !EmailText && Year && JobTitle && Checked) ? 
 		              			false : true  }  onClick={OnChange}>
 			            	Send OTP
 			            </Button>

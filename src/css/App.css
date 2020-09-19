@@ -1,3 +1,4 @@
+@import './header.css';
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -5,6 +6,7 @@ input::-webkit-inner-spin-button {
 }
 body{
 	margin: 0px;
+	background: #e0ebeb;
 }
 .textAlignCenter{
 	text-align: center;
@@ -32,10 +34,6 @@ body{
 .marginTop{
 	margin-top: 10px !important;
 }
-.ButtonActive{
-	background: #3f51b5 !important;
-	color: #fff !important;
-}
 .Code{
 	font-size: 15px;
 }
@@ -49,3 +47,4 @@ body{
 .desc{
 	font-size: 14px;
 }
+
