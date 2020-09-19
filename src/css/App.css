@@ -1,0 +1,51 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+body{
+	margin: 0px;
+}
+.textAlignCenter{
+	text-align: center;
+}
+.textAlignLeft{
+	text-align: left;
+}
+.width100{
+	width: 100%;
+}
+.width50{
+	width: 10% !important;
+}
+.center{
+	margin: auto !important;
+  	width: 20% !important;
+  	margin-top: 10px !important;
+}
+.displayGrid{
+	display: grid;
+}
+.hTag{
+	margin: 3px 0;
+}
+.marginTop{
+	margin-top: 10px !important;
+}
+.ButtonActive{
+	background: #3f51b5 !important;
+	color: #fff !important;
+}
+.Code{
+	font-size: 15px;
+}
+.OTPDiv{
+	margin-left: 40px;
+}
+.OTPDiv input{
+	padding: 8px !important;
+	margin: 5px;
+}
+.desc{
+	font-size: 14px;
+}
