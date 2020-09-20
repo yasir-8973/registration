@@ -2,7 +2,8 @@ const defaultStore = {
     PersonalDetails:{},
     CompanyDetails:{},
     BacktoPersonal:false,
-    BacktoCompany:false
+    BacktoCompany:false,
+    ProcessCompleted:false
 }
 export default function(state = defaultStore, action = {}) {
     switch (action.type) {
@@ -25,6 +26,11 @@ export default function(state = defaultStore, action = {}) {
             return {
                 ...state,
                 BacktoCompany:action.BacktoCompany
+            }
+        case "ProcessCompleted":
+            return {
+                ...state,
+                ProcessCompleted:action.ProcessCompleted
             }
         default:  
             return state;

@@ -30,7 +30,28 @@
 }
 .nextButton{
 	background: #F76D6D !important;
+    color: #fff !important;
 }
+.MuiButton-contained.Mui-disabled{
+    background: rgba(0, 0, 0, 0.26) !important;
+    color: #fff !important;
+}
+.backButton{
+    background: #34495e !important;
+    color: #fff !important;   
+}
+.MuiCheckbox-colorPrimary.Mui-checked {
+    color: #F76D6D !important;
+}
+
+.MuiStepIcon-root.MuiStepIcon-completed {
+    color: #2ecc71 !important;
+}
+.margin5{
+    margin: 0px 4px !important;
+}
+
+
 
 /*New Image Upload Css*/
 .avatar-upload {
@@ -85,7 +106,7 @@ input[type="file" i] {
     right: 150px;
 }
 .avatar-upload .avatar-edit input + label:after {
-    content: "\f040";
+    /*content: "\f040";*/
     font-family: 'FontAwesome';
     color: #757575;
     position: absolute;

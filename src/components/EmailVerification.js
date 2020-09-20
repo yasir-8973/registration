@@ -33,6 +33,10 @@ export default function EmailVerification(props){
 			setMsg("Email verified successfully");
 			setOtp("");
 			setStatus("success");
+			dispatch({
+				type:"ProcessCompleted",
+				ProcessCompleted:true
+			})
     	}else{
     		setMsg("Wrong OTP please try again.");
 			setOtp("");
@@ -89,28 +93,27 @@ export default function EmailVerification(props){
 		              	{msg ?  
 		              		status == "success"  ?
 		              			<div>
-			              			<Button variant="contained" disabled={true} color="primary" className="width50" onClick={Resend}>
-					                    Back
-					              	</Button>	
-			              			<Button variant="contained" color="primary" className="width50" onClick={() => window.location.reload(false)}>
-					                    Home
+					              	<Button variant="contained" color="primary" className="nextButton margin5" onClick={() => window.location.reload(false)}>
+					                     Back to Home
 					              	</Button>
 				              	</div>
 		              		:
 		              			<div>
-			              			<Button variant="contained" color="primary" className="width50" onClick={Resend}>
+			              			<Button variant="contained" color="primary" className="width50 backButton margin5" onClick={Resend}>
 					                    Resend OTP
 					              	</Button>	
-			              			<Button disabled={otp.toString().length == 4 ? false : true} variant="contained" color="primary" className="width50" onClick={CheckOtp}>
+			              			<Button disabled={otp.toString().length == 4 ? false : true} variant="contained" 
+			              				color="primary" className="width50 nextButton margin5" onClick={CheckOtp}>
 					                    Verify
 					              	</Button>
 				              	</div>
 	              		:
 	              			<div>
-	              			<Button variant="contained" color="primary" className="width50" onClick={OnBack}>
+	              			<Button variant="contained" color="primary" className="width50 backButton margin5" onClick={OnBack}>
 			                    Back
 			              	</Button>	
-	              			<Button disabled={otp.toString().length == 4 ? false : true} variant="contained" color="primary" className="width50" onClick={CheckOtp}>
+	              			<Button disabled={otp.toString().length == 4 ? false : true} variant="contained" 
+	              				color="primary" className="width50 nextButton margin5" onClick={CheckOtp} >
 			                    Verify
 			              	</Button>
 			              	</div>

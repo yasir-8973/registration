@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Alert from '@material-ui/lab/Alert';
 
+
 export default function PersonalDetails(){	
 	const content = useSelector(state => state);
     const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export default function PersonalDetails(){
 	const [StateName,setStateName] = useState("");
 	const [StateInputValue, setStateInputValue] = useState('');
 	const [StateNameText,setStateNameText] = useState("");
+	const [PhoneCode,setPhoneCode] = useState("");
 	const [PhoneNumber,setPhoneNumber] = useState("");
 	const [PhoneNumberText,setPhoneNumberText] = useState("");
 	const [Gender,setGender] = useState("");
@@ -48,7 +50,8 @@ export default function PersonalDetails(){
 			setCountryNameText("");
 			Phone.map((items) => {
 				if(items.name == val.country){
-					setPhoneNumber(parseInt(items.dial_code));
+					setPhoneCode(parseInt(items.dial_code));
+					setPhoneNumber("");
 				}
 			})
 		}		
@@ -83,6 +86,7 @@ export default function PersonalDetails(){
 				CountryName:CountryName ? CountryName : CountryInputValue ,
 				StateName:StateName ? StateName : StateInputValue,
 				PhoneNumber:PhoneNumber,
+				PhoneCode:PhoneCode,
 				Gender:Gender,
 				Step1:true
 			}
@@ -109,6 +113,7 @@ export default function PersonalDetails(){
 	      setCountryInputValue(content.PersonalDetails.CountryName);
 	      setStateInputValue(content.PersonalDetails.StateName);
 	      setPhoneNumber(content.PersonalDetails.PhoneNumber);
+	      setPhoneCode(content.PersonalDetails.PhoneCode);
 	      GenderType(content.PersonalDetails.Gender);
 
 	    }
@@ -125,7 +130,7 @@ export default function PersonalDetails(){
 	    			error={FullNameText && "error"}
 	    		/>
     				    		
-			    <Autocomplete disabled={CountryName && true }
+			    <Autocomplete
 			    	className="center marginTop" inputValue={CountryInputValue} onInputChange={(e, val) => {
 			          setCountryInputValue(val); }} onChange={(e,val) => {CountryChange(val)}}
 				    options={CountryData} getOptionLabel={(option) => option.country}
@@ -136,17 +141,30 @@ export default function PersonalDetails(){
 			    <Autocomplete
 			    	className="center marginTop" inputValue={StateInputValue} onInputChange={(e, val) => {
 			          setStateInputValue(val); }} onChange={(e,val) => {setStateName(val);setStateNameText("")}}
-		    		disabled={!CountryName && true}			    	
+		    		disabled={(!CountryName && !content.PersonalDetails.CountryName) && true}			    	
 				    options={StateData}
 				    getOptionLabel={(option) => option}
 				    renderInput={(params) => <TextField {...params} value={StateName} label="State" variant="outlined" 
 				    	helperText={StateNameText} error={StateNameText && "error"}
 				    />}
-			    />
-			    <TextField style={{marginTop :10}} label="Phone Number" className="center" helperText={PhoneNumberText}
-			    	type="number" variant="outlined" disabled={!CountryName && true} error={PhoneNumberText && "error"}
-			    	value={PhoneNumber} onChange={(e) => {setPhoneNumber(e.target.value);setPhoneNumberText("")}}
-		        />
+			    />			    			    			  
+				{PhoneCode ?	 
+					<div className="displayFlex">
+				    	<TextField style={{marginTop :10,width:80}} variant="outlined"
+				    		disabled={true} value={PhoneCode} 
+			        	/>
+			        	<TextField style={{marginTop :10,width:190}} label="Phone Number" helperText={PhoneNumberText}
+					    	type="number" variant="outlined" error={PhoneNumberText && "error"}
+					    	disabled={(!CountryName && !content.PersonalDetails.CountryName) && true}
+					    	value={PhoneNumber} onChange={(e) => {setPhoneNumber(e.target.value);setPhoneNumberText("")}}
+				        />
+				    </div>
+			        	:
+			        	<TextField style={{marginTop :10}} label="Phone Number" className="center" helperText={PhoneNumberText}
+					    	type="number" variant="outlined" disabled={!CountryName && true} error={PhoneNumberText && "error"}
+					    	value={PhoneNumber} onChange={(e) => {setPhoneNumber(e.target.value);setPhoneNumberText("")}}
+				        />
+			    }				    			    
 		        <div className="center">
 		    		<h5 className="textAlignLeft hTag">Gender</h5>
 		            <ButtonGroup color="primary">

@@ -179,10 +179,10 @@ export default function CompanyDetails(props){
 			            label="I accept the terms & conditions"
 			        />
 			        <div className="displayFlex width100">
-				        <Button variant="contained" color="primary" className="width50" onClick={OnBack}>
+				        <Button variant="contained" color="primary" className="width50 backButton margin5" onClick={OnBack}>
 		                    Back
 		              	</Button>
-		              	<Button variant="contained" className="width50" color="primary"
+		              	<Button variant="contained" className="width50 nextButton margin5" color="primary"
 		              		disabled={(ProfileImgVal && CompanyName && Email && !EmailText && Year && JobTitle && Checked) ? 
 		              			false : true  }  onClick={OnChange}>
 			            	Send OTP

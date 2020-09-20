@@ -134,9 +134,7 @@ export default function Registration() {
     if(content.BacktoCompany){
       setActiveStep(1);
     }
-  },[content.BacktoCompany]);
-
-  
+  },[content.BacktoCompany]); 
 
 
   return (
@@ -156,7 +154,7 @@ export default function Registration() {
             <Typography className={classes.instructions}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Button onClick={handleReset}>Reset</Button>
+            <Button onClick={handleReset}>Back to Home</Button>
           </div>
         ) : (
           <div>
